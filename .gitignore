@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.idea
+src/*.js
+src/*.map
+src/*/key
+dist
+build 
+.env
+.env-local
+key*

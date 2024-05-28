@@ -1,0 +1,1 @@
+export const COINBASE_AMOUNT: number = 50;
