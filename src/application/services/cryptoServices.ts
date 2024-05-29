@@ -1,3 +1,4 @@
+import CryptoJS from 'crypto-js';
 import * as ecdsa from 'elliptic';
 import * as _ from 'lodash';
 
@@ -14,5 +15,9 @@ export default class CryptoService {
 
   static getFromPublic(address: string) {
     return ec.keyFromPublic(address, 'hex');
+  }
+
+  static hashContent(content: any) {
+    return CryptoJS.SHA256(content)
   }
 }

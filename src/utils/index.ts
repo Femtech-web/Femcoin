@@ -1,3 +1,6 @@
+import { plainToInstance } from "class-transformer";
+import { validate, ValidationError } from "class-validator";
+
 export default class UtilsService {
   constructor() { };
 
@@ -37,5 +40,26 @@ export default class UtilsService {
       return null;
     }
   };
+
+  static async validateDto(dto: any, reqObj: any) {
+    try {
+      const dtoInstance = plainToInstance(dto, reqObj);
+      const errors: ValidationError[] = await validate(dtoInstance);
+
+      if (errors.length > 0) {
+        console.log(errors)
+        const dtoErrors = errors.map((error: ValidationError) => {
+          return (Object as any).values(error.constraints).join(", ")
+        })
+
+        const allErrors = dtoErrors.join(",")
+        throw new Error(allErrors)
+      }
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
+  };
+
 
 }

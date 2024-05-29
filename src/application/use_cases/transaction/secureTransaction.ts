@@ -13,7 +13,7 @@ export default class SecureTransaction {
       .map((txOut: TxOut) => txOut.address + txOut.amount)
       .reduce((a, b) => a + b, '');
 
-    return CryptoJS.SHA256(txInContent + txOutContent).toString();
+    return CryptoService.hashContent(txInContent + txOutContent).toString();
   };
 
   static signTxIn(transaction: Transaction, txInIndex: number,

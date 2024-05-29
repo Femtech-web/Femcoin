@@ -1,13 +1,13 @@
 import Transaction from "../../../entities/transaction";
 import ValidateTransaction from "../transaction/validateTransaction";
-import CreateTransaction from "../wallet/createTransaction";
+import CreateTransaction from "../transaction/createTransaction";
 import GetCoinbaseTx from "../transaction/getCoinbaseTransaction";
 import WalletService from "../../services/walletService";
 import { BlockGateway } from "../blockchain/interfaces/blockGateway";
 import { TransactionGateway } from '../transaction/interfaces/transactionGateway';
 import GenerateRawBlock from './generateRawNextBlock';
 
-export default class generateNextBlockWithTransaction {
+export default class GenerateNextBlockWithTransaction {
   constructor(
     private blockGateway: BlockGateway,
     private transactionGateway: TransactionGateway,
@@ -18,9 +18,6 @@ export default class generateNextBlockWithTransaction {
     if (!ValidateTransaction.isValidAddress(receiverAddress)) {
       throw Error('invalid address');
     }
-    if (typeof amount !== 'number') {
-      throw Error('invalid amount');
-    };
     const address = WalletService.getPublicFromWallet();
     const latestBlock = (await this.blockGateway.getLastBlock()).index + 1;
 

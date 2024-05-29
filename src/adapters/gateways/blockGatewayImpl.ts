@@ -17,7 +17,7 @@ export class BlockGatewayImpl implements BlockGateway {
     return this.blockchain[this.blockchain.length - 1];
   }
 
-  getBlockchain(): BlockInterface[] {
+  async getBlockchain(): Promise<BlockInterface[]> {
     return this.blockchain;
   }
 
