@@ -63,13 +63,13 @@ export default function blockchainRouter(
   );
 
   // GET endpoint
-  router.route('/').get(controller.getBlockchain);
-  router.route('/:hash').get(controller.getSingleBlock);
+  router.route('/').get(controller.getBlockchain.bind(controller));
+  router.route('/:hash').get(controller.getSingleBlock.bind(controller));
 
   // POST endpoint
-  router.route('/mineRawBlock').post(controller.mineRawBlock);
-  router.route('/mineBlock').post(controller.mineBlock);
-  router.route('/mineTransaction').post(controller.mineWithTransactions);
+  router.route('/mineRawBlock').post(controller.mineRawBlock.bind(controller));
+  router.route('/mineBlock').post(controller.mineBlock.bind(controller));
+  router.route('/mineTransaction').post(controller.mineWithTransactions.bind(controller));
 
   return router;
 }

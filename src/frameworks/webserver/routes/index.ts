@@ -17,7 +17,7 @@ export default function routes(
   socketService: any
 ) {
   app.use("/api/blockchain", blockchainRouter(express, blockchain, sockets, unspentTxOut, transactionPool));
-  app.use("/api/transaction", transactionRouter(express, blockchain, unspentTxOut, transactionPool));
+  app.use("/api/transaction", transactionRouter(express, blockchain, sockets, unspentTxOut, transactionPool));
   app.use("/api/p2p", p2pRouter(express, sockets, socketService));
-  app.use("/api/wallet", walletRouter(express));
+  app.use("/api/wallet", walletRouter(express, unspentTxOut, transactionPool));
 }

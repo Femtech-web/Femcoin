@@ -7,5 +7,5 @@ export default function initP2PServer(p2pPort: number, sockets: WebSocket[], soc
   server.on('connection', (ws: WebSocket) => {
     connection(sockets, socketService).initConnection(ws);
   });
-  console.log('listening websocket p2p port on: ' + p2pPort);
+  console.log('websocket p2p is listening on port: ' + p2pPort);
 };

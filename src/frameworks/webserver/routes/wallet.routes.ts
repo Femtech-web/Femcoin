@@ -1,24 +1,27 @@
 import Express from 'express';
-import WebSocket from 'ws';
+import Transaction, { UnspentTxOut } from '../../../entities/transaction';
 import walletController from '../../../adapters/controllers/wallet.controller';
-import socketGatewayImpl from '../../../adapters/gateways/socketGatewayImpl';
+import { TransactionGatewayImpl } from '../../../adapters/gateways/transactionGatewayImpl';
+
+import GetWalletBalance from '../../../application/use_cases/wallet/getBalance';
 
 export default function walletRouter(
   express: typeof Express,
+  unspentTxOuts: UnspentTxOut[],
+  transactionPool: Transaction[],
 ) {
   const router = express.Router();
+  const transactionGateway = new TransactionGatewayImpl(unspentTxOuts, transactionPool);
+
+  const getWalletBalance = new GetWalletBalance(transactionGateway);
 
   // load controller with dependencies
-  const controller = new walletController();
+  const controller = new walletController(getWalletBalance);
 
 
-  // POST endpoint
-  // router.route('/')
-  //   .post(
-  //     [
-  //       requirePasswordExists,
-  //       requireEmailExists
-  //     ], validatorErrorHandler, controller.loginUser);
+  // GET endpoint
+  router.route('/balance').get(controller.getAccountBalance.bind(controller));
+  router.route('/address').get(controller.getWalletAddress.bind(controller));
 
   return router;
 }

@@ -13,11 +13,11 @@ export class BlockGatewayImpl implements BlockGateway {
     this.blockchain.push(block as Block);
   }
 
-  async getLastBlock(): Promise<Block> {
+  async getLastBlock(): Promise<BlockInterface> {
     return this.blockchain[this.blockchain.length - 1];
   }
 
-  async getBlockchain(): Promise<BlockInterface[]> {
+  getBlockchain(): BlockInterface[] {
     return this.blockchain;
   }
 

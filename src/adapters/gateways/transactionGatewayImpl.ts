@@ -20,7 +20,7 @@ export class TransactionGatewayImpl implements TransactionGateway {
   };
 
   async setUnspentTxOuts(newUnspentTxOut: UnspentTxOut[]): Promise<void> {
-    console.log('replacing unspentTxouts with: %s', newUnspentTxOut);
+    console.log('replacing unspentTxOuts with:', newUnspentTxOut);
     this.unspentTxOuts = newUnspentTxOut;
   };
 
