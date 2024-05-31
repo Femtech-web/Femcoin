@@ -22,7 +22,7 @@ export default class HandleResponse {
     }
     const latestBlockReceived: Block = receivedBlocks[receivedBlocks.length - 1];
     if (!ValidateBlock.isValidBlockStructure(latestBlockReceived)) {
-      console.log('block structuture not valid');
+      console.log('block structure not valid');
       return;
     }
     const latestBlockHeld: Block = await this.blockGateway.getLastBlock();

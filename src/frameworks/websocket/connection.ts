@@ -8,7 +8,7 @@ export default function connection(sockets: WebSocket[], socketService: any) {
 
   const initConnection = (ws: WebSocket) => {
     sockets.push(ws);
-    initMessageHandler(ws, sockets, socketService);
+    initMessageHandler(ws, socketService);
     initErrorHandler(ws, sockets);
     transportMessage.write(ws, dataType.queryChainLengthMsg());
 

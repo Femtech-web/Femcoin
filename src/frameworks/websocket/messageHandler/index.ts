@@ -5,7 +5,7 @@ import Message from '../../../entities/interfaces/message.interface';
 import { MessageType } from '../../../application/enums/messageType.enum';
 import UtilsService from '../../../utils';
 
-export default function initMessageHandler(ws: WebSocket, socketService: any, sockets: WebSocket[]) {
+export default function initMessageHandler(ws: WebSocket, socketService: any,) {
   const {
     handleBlockchainResponse,
     handleReceivedTransaction,
@@ -47,16 +47,19 @@ export default function initMessageHandler(ws: WebSocket, socketService: any, so
             console.log('invalid transaction received: %s', JSON.stringify(message.data));
             break;
           }
-          receivedTransactions.forEach((transaction: Transaction) => {
-            try {
-              handleReceivedTransaction(transaction);
-              // if no error is thrown, transaction was indeed added to the pool
-              // let's broadcast transaction pool
-              broadcastTransactionPool();
-            } catch (e: any) {
-              console.log(e.message);
-            }
-          });
+
+          if (receivedTransactions !== null) {
+            receivedTransactions.forEach((transaction: Transaction) => {
+              try {
+                handleReceivedTransaction(transaction);
+                // if no error is thrown, transaction was indeed added to the pool
+                // let's broadcast transaction pool
+                broadcastTransactionPool();
+              } catch (e: any) {
+                console.log(e.message);
+              }
+            });
+          }
           break;
       }
     } catch (e) {
